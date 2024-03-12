@@ -35,4 +35,4 @@ out/
 
 ### VS Code ###
 .vscode/
-test_db
+test_db.mv.db

@@ -45,8 +45,16 @@ public class UrlSvcService {
 		UrlSvc oldOne = urlSvcRepository.findByNewUrl(rqDto.getPreUrl());
 
 		String newUrl = "https://short.io/" + rqDto.getChangedValue();
+		newUrl = UrlCoder.urlEncode(newUrl);
 		oldOne.setNewUrl(newUrl);
 
 		return new UrlSvcDto(oldOne);
+	}
+
+	public UrlSvcDto findRedirectPage(String path) {
+		String newUrl ="https://short.io/" + path;
+		newUrl = UrlCoder.urlEncode(newUrl);
+		UrlSvc urlSvc = urlSvcRepository.findByNewUrl(newUrl);
+		return new UrlSvcDto(urlSvc);
 	}
 }
