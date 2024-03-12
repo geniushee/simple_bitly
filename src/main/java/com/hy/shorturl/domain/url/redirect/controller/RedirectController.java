@@ -15,7 +15,7 @@ import com.hy.shorturl.domain.url.url.service.UrlSvcService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/r")
+@RequestMapping("/")
 @RequiredArgsConstructor
 public class RedirectController {
 

@@ -3,6 +3,7 @@ package com.hy.shorturl.domain.url.url.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hy.shorturl.domain.url.url.dto.ChangedUrlSvcDto;
 import com.hy.shorturl.domain.url.url.dto.ChangedUrlTitleDto;
 import com.hy.shorturl.domain.url.url.dto.UrlSvcDto;
 import com.hy.shorturl.domain.url.url.dto.UrlSvcRequestDto;
@@ -45,16 +46,25 @@ public class UrlSvcService {
 		UrlSvc oldOne = urlSvcRepository.findByNewUrl(rqDto.getPreUrl());
 
 		String newUrl = "https://short.io/" + rqDto.getChangedValue();
-		newUrl = UrlCoder.urlEncode(newUrl);
+		// newUrl = UrlCoder.urlEncode(newUrl);
 		oldOne.setNewUrl(newUrl);
 
 		return new UrlSvcDto(oldOne);
 	}
 
 	public UrlSvcDto findRedirectPage(String path) {
-		String newUrl ="https://short.io/" + path;
-		newUrl = UrlCoder.urlEncode(newUrl);
+		String var = UrlCoder.urlDecode(path);
+		String newUrl ="https://short.io/" + var;
+		// newUrl = UrlCoder.urlEncode(newUrl);
 		UrlSvc urlSvc = urlSvcRepository.findByNewUrl(newUrl);
 		return new UrlSvcDto(urlSvc);
+	}
+
+	public ChangedUrlSvcDto findUrlSvcByNewUrl(UrlSvcRequestDto rqDto) {
+		UrlSvc urlSvc = urlSvcRepository.findByNewUrl(rqDto.getNewUrl());
+		String basic = "https://short.io/";
+		String newUrl = UrlCoder.urlDecode(urlSvc.getNewUrl());
+		String title = newUrl.split(basic)[1];
+		return new ChangedUrlSvcDto(urlSvc, title);
 	}
 }
