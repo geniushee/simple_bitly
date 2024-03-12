@@ -27,9 +27,11 @@ public class UrlSvcController {
 	}
 
 	// todo 제목을 수정하여 새로운 주소를 변경
+	@PostMapping("/modifyOld")
 	public ResponseEntity<UrlSvcDto> urlSvcModifyTitle(@RequestBody ChangedUrlTitleDto RqDto){
 		UrlSvcDto res = urlSvcService.modifyUrl(RqDto);
-		return null;
+		ResponseEntity<UrlSvcDto> responseEntity = ResponseEntity.ok(res);
+		return responseEntity;
 	}
 
 }

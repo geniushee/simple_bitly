@@ -37,7 +37,16 @@ public class UrlSvcService {
 		return new UrlSvcDto(newOne);
 	}
 
+
+	// String preTitle = oldOne.getNewUrl().split("https://short.io/")[1];
+
+	@Transactional
 	public UrlSvcDto modifyUrl(ChangedUrlTitleDto rqDto) {
-		return null;
+		UrlSvc oldOne = urlSvcRepository.findByNewUrl(rqDto.getPreUrl());
+
+		String newUrl = "https://short.io/" + rqDto.getChangedValue();
+		oldOne.setNewUrl(newUrl);
+
+		return new UrlSvcDto(oldOne);
 	}
 }
