@@ -1,0 +1,27 @@
+Spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:./test_db:mode=MySql
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  jdbc:
+    template:
+      fetch-size: 100
+
+logging:
+  level:
+    com.hy.shorturl: debug
+    org.hibernate.sql : debug
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.hibernate.orm.jdbc.extract: TRACE
+    org.springframework.transaction.interceptor: TRACE
